@@ -1,11 +1,5 @@
-import React, { useState, useEffect }from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  Alert,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, Dimensions, Alert } from 'react-native';
 import MapView, {
   Marker,
   Callout,
@@ -14,15 +8,14 @@ import MapView, {
 } from 'react-native-maps';
 import CustomCallout from './custom_callout';
 import Geolocation from '@react-native-community/geolocation';
+import Cal from './calculate_color';
 
-Geolocation.getCurrentPosition(info => console.log(info));
-
-const Callouts = props => {
+const Map = props => {
+  const stationList = props.stationList;
   const { width, height } = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
-  const LATITUDE_DELTA = 0.0922;
+  const LATITUDE_DELTA = 0.5;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-  const SPACE = 0.01;
   const [latitude, setLatitude] = useState(22.2745);
   const [longitude, setLongitude] = useState(114.1533);
   const [cnt, setCnt] = useState(0);
@@ -32,102 +25,101 @@ const Callouts = props => {
     longitude: longitude,
     latitudeDelta: LATITUDE_DELTA,
     longitudeDelta: LONGITUDE_DELTA,
-  }
-  const markers = [
-    {
-      coordinate: {
-        latitude: latitude + SPACE,
-        longitude: longitude + SPACE,
-      },
-    },
-    {
-      coordinate: {
-        latitude: latitude + SPACE,
-        longitude: longitude - SPACE,
-      },
-    },
-    {
-      coordinate: {
-        latitude: latitude,
-        longitude: longitude,
-      },
-    },
-    {
-      coordinate: {
-        latitude: latitude,
-        longitude: longitude - SPACE / 2,
-      },
-    },
-  ]
+  };
 
-  useEffect(()=> {
+  useEffect(() => {
     Geolocation.getCurrentPosition(info => {
-      // setLatitude(info.coords.latitude)
-      // setLongitude(info.coords.longitude)
-      setLatitude(22.2745)
-      setLongitude(114.1533)
-    })
-  })
+      setLatitude(info.coords.latitude)
+      setLongitude(info.coords.longitude)
+    });
+  });
 
-  return(
+  return (
     <View style={styles.container}>
-        <MapView
-          provider={props.provider}
-          style={styles.map}
-          initialRegion={region}
-          zoomTapEnabled={false}
-        >
-          <Marker coordinate={markers[1].coordinate}>
-            <Callout style={styles.plainView}>
-              <View>
-                <Text>This is a plain view</Text>
+      <MapView
+        provider={props.provider}
+        style={styles.map}
+        showsUserLocation={true}
+        region={region}
+        minZoomLevel={10}
+        followsUserLocation={true}
+        zoomTapEnabled={false}>
+        {
+          stationList.map(marker => 
+            <Marker
+              key={marker.name}
+              coordinate={marker.coordinate}
+              calloutOffset={{ x: -8, y: 28 }}
+              calloutAnchor={{ x: 0.5, y: 0.4 }}>
+              <View style={[styles.customMarker, {backgroundColor:Cal(marker.temp)}]}>
+                <Text>{marker.temp}</Text>
+                <View style={[styles.arrow, {backgroundColor:Cal(marker.temp)}]}></View>
               </View>
-            </Callout>
-          </Marker>
-          <Marker
-            coordinate={markers[2].coordinate}
-            calloutOffset={{ x: -8, y: 28 }}
-            calloutAnchor={{ x: 0.5, y: 0.4 }}
-          >
-            <Callout
-              alphaHitTest
-              tooltip
-              onPress={e => {
-                if (
-                  e.nativeEvent.action === 'marker-inside-overlay-press' ||
-                  e.nativeEvent.action === 'callout-inside-press'
-                ) {
-                  return;
-                }
+              <Callout
+                alphaHitTest
+                tooltip
+                onPress={e => {
+                  if (
+                    e.nativeEvent.action === 'marker-inside-overlay-press' ||
+                    e.nativeEvent.action === 'callout-inside-press'
+                  ) {
+                    return;
+                  }
+                  Alert.alert('callout pressed');
+                }}
+                style={styles.customView}>
+                <CustomCallout>
+                  <Text>{`This is a custom callout bubble view ${cnt}`}</Text>
+                  <CalloutSubview
+                    onPress={() => {
+                      setCnt(cnt + 1);
+                    }}
+                    style={[styles.calloutButton]}>
+                    <Text>Click me</Text>
+                  </CalloutSubview>
+                </CustomCallout>
+              </Callout>
+            </Marker>
+          )
+        }
+      </MapView>
+    </View>
+  );
+};
 
-                Alert.alert('callout pressed');
-              }}
-              style={styles.customView}
-            >
-              <CustomCallout>
-                <Text>{`This is a custom callout bubble view ${cnt}`}</Text>
-                <CalloutSubview
-                  onPress={() => {
-                    setCnt(cnt+1)
-                  }}
-                  style={[styles.calloutButton]}
-                >
-                  <Text>Click me</Text>
-                </CalloutSubview>
-              </CustomCallout>
-            </Callout>
-          </Marker>
-        </MapView>
-      </View>
-  )
-}
-
-
-Callouts.propTypes = {
+Map.propTypes = {
   provider: ProviderPropType,
 };
 
 const styles = StyleSheet.create({
+  arrow: {
+    width:8,
+    height:8,
+    transform:[{rotate:'45deg'}],
+    position:'absolute',
+    // left:"33%",
+    top:"94%",
+    borderRadius:1,
+    borderBottomColor:"gray",
+    borderBottomWidth:1.5,
+    borderRightColor:"gray",
+    borderRightWidth:1.5,
+    alignSelf: 'center',
+
+  },
+  customMarker: {
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    padding:1,
+    borderRadius:2,
+    borderColor:"gray",
+    borderWidth:1,
+    elevation:1,
+    shadowColor:"black",
+    shadowOffset:{width:0,height:0},
+    shadowOpacity: 1,
+    shadowRadius: 0.7,
+  },
   customView: {
     width: 140,
     height: 140,
@@ -177,4 +169,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Callouts;
+export default Map;

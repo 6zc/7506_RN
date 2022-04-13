@@ -7,15 +7,10 @@
  */
 
 import React from 'react';
-import Node from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 
 import {
@@ -23,6 +18,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import BottomMenu from "./bottom_navigator/bottom_navigator";
+import SearchBar from "./top_searchbar/top_searchbar"
 import MapWrapper from "./map/map"
 
 const App = () => {
@@ -33,10 +29,50 @@ const App = () => {
     height: '100%'
   };
 
+
+  const latitude = 22.2745
+  const longitude = 114.1533
+  const SPACE = 0.01;
+  const stationList = [
+    {
+      name:'MW',
+      temp:'30',
+      coordinate: {
+        latitude: latitude,
+        longitude: longitude + 3*SPACE,
+      },
+    },
+    {
+      name:'MW2',
+      temp:'15',
+      coordinate: {
+        latitude: latitude + 3*SPACE,
+        longitude: longitude - SPACE,
+      },
+    },
+    {
+      name:'MW3',
+      temp:'18',
+      coordinate: {
+        latitude: latitude,
+        longitude: longitude,
+      },
+    },
+    {
+      name:'MW4',
+      temp:'23',
+      coordinate: {
+        latitude: latitude,
+        longitude: longitude - 3* SPACE,
+      },
+    },
+  ]
+
   return (
     <SafeAreaView style={backgroundStyle}>
-    <MapWrapper />
-    <BottomMenu style={styles.navi}/>
+      <MapWrapper stationList={stationList}/>
+      <SearchBar />
+      <BottomMenu style={styles.navi}/>
     </SafeAreaView>
   );
 };
@@ -44,7 +80,6 @@ const App = () => {
 const styles = StyleSheet.create({
   navi: {
     position: 'absolute',
-    zIndex: 4
   },
 });
 

@@ -8,13 +8,13 @@ const BottomMenuWrapper = props => {
       <Item
         size={30}
         name="location"
-        text="local"
+        text="Now"
         type="EvilIcons"
         isActive={isActive == "home" ? true : false}
         onPress={() => setActive("home")}
       />
       <Item
-        size={22}
+        size={30}
         type="AntDesign"
         text="Forecast"
         name="cloud"
