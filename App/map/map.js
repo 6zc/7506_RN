@@ -19,7 +19,7 @@ const Map = props => {
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const [latitude, setLatitude] = useState(22.2745);
   const [longitude, setLongitude] = useState(114.1533);
-  const [cnt, setCnt] = useState(0);
+  const [showMarkers, setShowMarkers] = useState(true);
 
 
   const region = {
@@ -42,14 +42,12 @@ const Map = props => {
     console.log(curStation)
     if(refs[curStation]){
       console.log(refs[curStation])
-      refs[curStation].current.showCallout()
+      // refs[curStation].current.showCallout()
     }
   });
 
-  const hideMarker = (name) => {
-    if(refs[name]){
-      refs[name].current.opacity = 0
-    }
+  const onCallout = () => {
+    setShowMarkers(!showMarkers)
   }
 
   return (
@@ -68,12 +66,13 @@ const Map = props => {
             <Marker
               ref={refs[marker.name]}
               key={marker.name}
-              onSelect={()=> hideMarker(marker.name)}
+              onSelect={()=>onCallout()}
+              onDeselect={()=>onCallout()}
               coordinate={marker.coordinate}
-              calloutOffset={{ x: 20, y: 110 }}
+              calloutOffset={{ x: 0, y: 60 }}
               calloutAnchor={{ x: 0.5, y: 1 }}
             >
-              <View style={[styles.customMarker, {backgroundColor:Cal(marker.temp)}]}>
+              <View style={[styles.customMarker, {backgroundColor:Cal(marker.temp), opacity: showMarkers? 1:0}]}>
                 <View style={styles.textWrapper}>
                   <Text>{marker.temp}</Text>
                   <Text style={styles.celsius}>{'°C'}</Text>
@@ -90,7 +89,6 @@ const Map = props => {
                   ) {
                     return;
                   }
-                  // Alert.alert('callout pressed');
                 }}
                 style={styles.customView}>
                 <CustomCallout
@@ -161,38 +159,38 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  bubble: {
-    flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-  latlng: {
-    width: 200,
-    alignItems: 'stretch',
-  },
-  button: {
-    width: 80,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    backgroundColor: 'transparent',
-  },
-  calloutButton: {
-    width: 'auto',
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 6,
-    paddingVertical: 6,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginHorizontal: 10,
-    marginVertical: 10,
-  },
+  // bubble: {
+  //   flex: 1,
+  //   backgroundColor: 'rgba(255,255,255,0.7)',
+  //   paddingHorizontal: 18,
+  //   paddingVertical: 12,
+  //   borderRadius: 20,
+  // },
+  // latlng: {
+  //   width: 200,
+  //   alignItems: 'stretch',
+  // },
+  // button: {
+  //   width: 80,
+  //   paddingHorizontal: 12,
+  //   alignItems: 'center',
+  //   marginHorizontal: 10,
+  // },
+  // buttonContainer: {
+  //   flexDirection: 'row',
+  //   marginVertical: 20,
+  //   backgroundColor: 'transparent',
+  // },
+  // calloutButton: {
+  //   width: 'auto',
+  //   backgroundColor: 'rgba(255,255,255,0.7)',
+  //   paddingHorizontal: 6,
+  //   paddingVertical: 6,
+  //   borderRadius: 12,
+  //   alignItems: 'center',
+  //   marginHorizontal: 10,
+  //   marginVertical: 10,
+  // },
 });
 
 export default Map;
