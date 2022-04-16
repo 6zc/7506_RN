@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, Dimensions, Alert } from 'react-native';
 import MapView, {
   Marker,
@@ -12,6 +12,7 @@ import Cal from './calculate_color';
 
 const Map = props => {
   const stationList = props.stationList;
+  const curStation = props.curStation;
   const { width, height } = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.5;
@@ -20,6 +21,7 @@ const Map = props => {
   const [longitude, setLongitude] = useState(114.1533);
   const [cnt, setCnt] = useState(0);
 
+
   const region = {
     latitude: latitude,
     longitude: longitude,
@@ -27,32 +29,55 @@ const Map = props => {
     longitudeDelta: LONGITUDE_DELTA,
   };
 
+  const refs = []
+  stationList.map(marker =>{
+    refs[marker.name] = useRef(null)
+  })
+
   useEffect(() => {
     Geolocation.getCurrentPosition(info => {
       setLatitude(info.coords.latitude)
       setLongitude(info.coords.longitude)
     });
+    console.log(curStation)
+    if(refs[curStation]){
+      console.log(refs[curStation])
+      refs[curStation].current.showCallout()
+    }
   });
+
+  const hideMarker = (name) => {
+    if(refs[name]){
+      refs[name].current.opacity = 0
+    }
+  }
 
   return (
     <View style={styles.container}>
       <MapView
         provider={props.provider}
         style={styles.map}
-        showsUserLocation={true}
+        // showsUserLocation={true}
         region={region}
         minZoomLevel={10}
+        maxZoomLevel={15}
         followsUserLocation={true}
         zoomTapEnabled={false}>
         {
           stationList.map(marker => 
             <Marker
+              ref={refs[marker.name]}
               key={marker.name}
+              onSelect={()=> hideMarker(marker.name)}
               coordinate={marker.coordinate}
-              calloutOffset={{ x: -8, y: 28 }}
-              calloutAnchor={{ x: 0.5, y: 0.4 }}>
+              calloutOffset={{ x: 20, y: 110 }}
+              calloutAnchor={{ x: 0.5, y: 1 }}
+            >
               <View style={[styles.customMarker, {backgroundColor:Cal(marker.temp)}]}>
-                <Text>{marker.temp}</Text>
+                <View style={styles.textWrapper}>
+                  <Text>{marker.temp}</Text>
+                  <Text style={styles.celsius}>{'°C'}</Text>
+                </View>
                 <View style={[styles.arrow, {backgroundColor:Cal(marker.temp)}]}></View>
               </View>
               <Callout
@@ -65,18 +90,13 @@ const Map = props => {
                   ) {
                     return;
                   }
-                  Alert.alert('callout pressed');
+                  // Alert.alert('callout pressed');
                 }}
                 style={styles.customView}>
-                <CustomCallout>
-                  <Text>{`This is a custom callout bubble view ${cnt}`}</Text>
-                  <CalloutSubview
-                    onPress={() => {
-                      setCnt(cnt + 1);
-                    }}
-                    style={[styles.calloutButton]}>
-                    <Text>Click me</Text>
-                  </CalloutSubview>
+                <CustomCallout
+                  weatherObj={marker}
+                >
+                  
                 </CustomCallout>
               </Callout>
             </Marker>
@@ -92,6 +112,12 @@ Map.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  textWrapper:{
+    flexDirection:'row'
+  },
+  celsius:{
+    fontSize:12
+  },
   arrow: {
     width:8,
     height:8,

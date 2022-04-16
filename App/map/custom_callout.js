@@ -1,43 +1,57 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+import { StyleSheet, View, Text } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  style: PropTypes.object,
-};
-
-class CustomCallout extends React.Component {
-  render() {
-    return (
-      <View style={[styles.container, this.props.style]}>
-        <View style={styles.bubble}>
-          <View style={styles.amount}>{this.props.children}</View>
+const CustomCallout = props => {
+  const weatherObj = props.weatherObj
+  const {name, temp, weather, windSpeed, windDirection, UV} = weatherObj
+  return (
+    <View style={[styles.container, props.style]}>
+      <View style={styles.bubble}>
+        <View style={styles.lines}>
+          <FontAwesome style={styles.icons} name={'location-arrow'}></FontAwesome>
+          <Text>{' '+name}</Text>
         </View>
-        <View style={styles.arrowBorder} />
-        <View style={styles.arrow} />
+        <View style={styles.lines}>
+          <FontAwesome style={styles.icons} name={'cloud'}></FontAwesome>
+          <Text>{weather+' '+temp+'°C'}</Text>
+        </View>
+        <View style={styles.lines}>
+          <FontAwesome style={styles.icons} name={'wind'}></FontAwesome>
+          <Text>{' '+windDirection+' '+windSpeed}</Text>
+        </View>
+        <View style={styles.lines}>
+          <FontAwesome style={styles.icons} name={'sun'}></FontAwesome>
+          <Text>{' UV index: '+UV}</Text>
+        </View>
       </View>
-    );
-  }
+      <View style={styles.arrowBorder} />
+      <View style={styles.arrow} />
+    </View>
+  );
 }
 
-CustomCallout.propTypes = propTypes;
-
 const styles = StyleSheet.create({
+  icons:{
+    paddingRight:3
+  },
+  lines:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   container: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
   },
   bubble: {
     width: 140,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignSelf: 'flex-start',
-    backgroundColor: '#4da2ab',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     borderRadius: 6,
-    borderColor: '#007a87',
+    borderColor: '#eeeeee',
     borderWidth: 0.5,
   },
   amount: {
@@ -47,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderWidth: 16,
     borderColor: 'transparent',
-    borderTopColor: '#4da2ab',
+    borderTopColor: '#ffffff',
     alignSelf: 'center',
     marginTop: -32,
   },

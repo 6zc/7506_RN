@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -23,44 +23,60 @@ import MapWrapper from "./map/map"
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [curStation, setCurStation] = useState('MidWest')
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     height: '100%'
   };
 
-
   const latitude = 22.2745
   const longitude = 114.1533
   const SPACE = 0.01;
   const stationList = [
     {
-      name:'MW',
+      name:'MidWest',
       temp:'30',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
       coordinate: {
         latitude: latitude,
         longitude: longitude + 3*SPACE,
       },
     },
     {
-      name:'MW2',
+      name:'Central',
       temp:'15',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
       coordinate: {
         latitude: latitude + 3*SPACE,
         longitude: longitude - SPACE,
       },
     },
     {
-      name:'MW3',
+      name:'Kowloon',
       temp:'18',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
       coordinate: {
         latitude: latitude,
         longitude: longitude,
       },
     },
     {
-      name:'MW4',
+      name:'Shamsuipo',
       temp:'23',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
       coordinate: {
         latitude: latitude,
         longitude: longitude - 3* SPACE,
@@ -70,8 +86,8 @@ const App = () => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <MapWrapper stationList={stationList}/>
-      <SearchBar />
+      <MapWrapper stationList={stationList} curStation={curStation}/>
+      <SearchBar stationList={stationList} setCurStation={setCurStation}/>
       <BottomMenu style={styles.navi}/>
     </SafeAreaView>
   );
