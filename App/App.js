@@ -6,16 +6,11 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import Node from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 
 import {
@@ -23,20 +18,77 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import BottomMenu from "./bottom_navigator/bottom_navigator";
+import SearchBar from "./top_searchbar/top_searchbar"
 import MapWrapper from "./map/map"
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [curStation, setCurStation] = useState('MidWest')
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     height: '100%'
   };
 
+  const latitude = 22.2745
+  const longitude = 114.1533
+  const SPACE = 0.01;
+  const stationList = [
+    {
+      name:'MidWest',
+      temp:'30',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
+      coordinate: {
+        latitude: latitude,
+        longitude: longitude + 3*SPACE,
+      },
+    },
+    {
+      name:'Central',
+      temp:'15',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
+      coordinate: {
+        latitude: latitude + 3*SPACE,
+        longitude: longitude - SPACE,
+      },
+    },
+    {
+      name:'Kowloon',
+      temp:'18',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
+      coordinate: {
+        latitude: latitude,
+        longitude: longitude,
+      },
+    },
+    {
+      name:'Shamsuipo',
+      temp:'23',
+      weather:'Rainy',
+      windSpeed:'10m/s',
+      windDirection:'North',
+      UV:'10',
+      coordinate: {
+        latitude: latitude,
+        longitude: longitude - 3* SPACE,
+      },
+    },
+  ]
+
   return (
     <SafeAreaView style={backgroundStyle}>
-    <MapWrapper />
-    <BottomMenu style={styles.navi}/>
+      <MapWrapper stationList={stationList} curStation={curStation}/>
+      <SearchBar stationList={stationList} setCurStation={setCurStation}/>
+      <BottomMenu style={styles.navi}/>
     </SafeAreaView>
   );
 };
@@ -44,7 +96,6 @@ const App = () => {
 const styles = StyleSheet.create({
   navi: {
     position: 'absolute',
-    zIndex: 4
   },
 });
 
