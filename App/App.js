@@ -11,6 +11,8 @@ import {
   SafeAreaView,
   StyleSheet,
   useColorScheme,
+  View,
+  Text
 } from 'react-native';
 
 import {
@@ -20,8 +22,12 @@ import {
 import BottomMenu from "./bottom_navigator/bottom_navigator";
 import SearchBar from "./top_searchbar/top_searchbar"
 import MapWrapper from "./map/map"
+import Today from './components/today'
+import Hours from './components/hours'
+import Days from './components/days'
 
 const App = () => {
+
   const isDarkMode = useColorScheme() === 'dark';
   const [curStation, setCurStation] = useState('MidWest')
 
@@ -86,6 +92,13 @@ const App = () => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
+      {/*       
+      <View style={styles.today}>
+          <Today data={this.state}/>
+          <Hours hours={this.state}/>
+      </View>
+      <Days data={this.state}/> 
+      */}
       <MapWrapper stationList={stationList} curStation={curStation}/>
       <SearchBar stationList={stationList} setCurStation={setCurStation}/>
       <BottomMenu style={styles.navi}/>
@@ -96,6 +109,12 @@ const App = () => {
 const styles = StyleSheet.create({
   navi: {
     position: 'absolute',
+  },
+  today: {
+    backgroundColor: '#4da4dd'
+  },
+  container:{
+    marginBottom:44
   },
 });
 
