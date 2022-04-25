@@ -13,7 +13,7 @@
       android:theme="@style/AppTheme">
       <meta-data 
         android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyC7ST_xfoYhqlF8x4x2ShZVCMlLWD0Hsgg"/>
+        android:value="YOURAPIKEY"/>
       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
       <activity
         android:name=".MainActivity"
