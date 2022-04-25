@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BottomMenu, Item } from "react-native-bottom-menu";
 
 const BottomMenuWrapper = props => {
-  const [isActive, setActive] = useState("home");
+  const [isActive, setActive] = useState("forecast");
   return (
     <BottomMenu>
       <Item
@@ -18,8 +18,8 @@ const BottomMenuWrapper = props => {
         type="AntDesign"
         text="Forecast"
         name="cloud"
-        isActive={isActive == "messages" ? true : false}
-        onPress={() => setActive("messages")}
+        isActive={isActive == "forecast" ? true : false}
+        onPress={() => setActive("forecast")}
       />
       
     </BottomMenu>
