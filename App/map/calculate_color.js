@@ -17,7 +17,7 @@ const Cal = temp => {
     '#FF0000',
     '#990000',
   ]; //red
-  temp = parseInt(temp);
+  temp = parseInt(temp, 10);
   if (temp >= 40) {
     return colorList[15];
   } else if (temp <= -8) {

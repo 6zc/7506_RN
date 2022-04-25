@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Alert} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const CustomCallout = props => {

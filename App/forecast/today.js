@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Image, Text, View} from 'react-native';
+import {StyleSheet, Image, Text, View} from 'react-native';
 
 export default class Today extends Component {
   constructor(props) {
@@ -27,10 +27,10 @@ export default class Today extends Component {
 
   render() {
     var weather = this.state.weather;
-    var img =
-      weather.weather_pic < 10
-        ? '0' + weather.weather_pic
-        : weather.weather_pic;
+    // var img =
+    //   weather.weather_pic < 10
+    //     ? '0' + weather.weather_pic
+    //     : weather.weather_pic;
     return (
       <View style={Styles.container}>
         <View style={Styles.city}>

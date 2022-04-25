@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, View, Text, Dimensions, Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import MapView, {Marker, Callout, ProviderPropType} from 'react-native-maps';
 import CustomCallout from './custom_callout';
 import Geolocation from 'react-native-geolocation-service';
@@ -7,7 +7,7 @@ import Cal from './calculate_color';
 
 const Map = props => {
   const stationList = props.stationList;
-  const curStation = props.curStation;
+  // const curStation = props.curStation;
   const {width, height} = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.5;
@@ -23,10 +23,13 @@ const Map = props => {
     longitudeDelta: LONGITUDE_DELTA,
   };
 
-  const refs = [];
-  stationList.map(marker => {
-    refs[marker.name] = useRef(null);
-  });
+  const refs = new Array(stationList.length);
+  // for (let i = 0; i < stationList.length; i++) {
+  //   refs[stationList[i].name] = useRef(null);
+  // }
+  // stationList.map(marker => {
+  //   refs[marker.name] = useRef(null);
+  // });
 
   useEffect(() => {
     Geolocation.getCurrentPosition(info => {
@@ -123,8 +126,8 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    height:780,
-    width:400
+    height: 780,
+    width: 400,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

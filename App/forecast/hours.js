@@ -1,16 +1,9 @@
 /*
- 今天天气
+  按时间顺序展示温度/天气
  */
 
 import React, {Component} from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  FlatList,
-  Image,
-  Text,
-  View,
-} from 'react-native';
+import {StyleSheet, FlatList, Image, Text, View} from 'react-native';
 
 export default class Hours extends Component {
   constructor(props) {
@@ -90,7 +83,7 @@ export default class Hours extends Component {
     */
 
   render() {
-    data = this.state.data;
+    const data = this.state.data;
     return (
       <View style={Styles.container}>
         <FlatList
@@ -110,7 +103,7 @@ const Styles = StyleSheet.create({
   container: {
     backgroundColor: '#4da4dd90',
     paddingBottom: 12,
-    marginTop:40
+    marginTop: 40,
     // height:140
   },
   list: {

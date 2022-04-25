@@ -1,17 +1,8 @@
 import React, {Component} from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  RefreshControl,
-  FlatList,
-  Image,
-  ScrollView,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, FlatList, Image, View} from 'react-native';
 
-renderTopicItem = ({item, name, index}) => {
-    var src = [
+const renderTopicItem = ({item, name, index}) => {
+  var src = [
     {url: require('./../resource/icon_snow.png')},
     {url: require('./../resource/icon_ride.png')}, //icon_ride.png
     {url: require('./../resource/icon_sun.png')},
@@ -19,9 +10,9 @@ renderTopicItem = ({item, name, index}) => {
     {url: require('./../resource/icon_car.png')},
     {url: require('./../resource/icon_air.png')},
     {url: require('./../resource/icon_clothes.png')}, //icon_clothes
-];
+  ];
 
-    return (
+  return (
     <View style={Styles.list}>
       <View style={Styles.left}>
         <Image style={Styles.icon} source={src[2].url} />
@@ -61,7 +52,7 @@ export default class TodayDetail extends Component {
             </Text>
             <Text style={Styles.airText}>
               无影响{'\n'}
-              <Text style={{marginTop: 10}}>建议添加衣物，以防感冒</Text>
+              <Text style={Styles.advice}>建议添加衣物，以防感冒</Text>
             </Text>
           </View>
           <FlatList
@@ -77,6 +68,9 @@ export default class TodayDetail extends Component {
 }
 
 const Styles = StyleSheet.create({
+  advice: {
+    marginTop: 10,
+  },
   detail: {
     marginTop: 10,
   },

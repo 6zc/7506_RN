@@ -1,17 +1,9 @@
 /*
- 今天天气
+未来7天天气预报
  */
 
 import React, {Component} from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-  Image,
-  Text,
-  View,
-} from 'react-native';
+import {StyleSheet, FlatList, Image, Text, View} from 'react-native';
 
 export default class Days extends Component {
   constructor(props) {
@@ -86,7 +78,7 @@ export default class Days extends Component {
   };
 
   render() {
-    data = this.state.data;
+    const data = this.state.data;
     return (
       <FlatList
         style={Styles.container}
@@ -100,7 +92,7 @@ export default class Days extends Component {
 
 const Styles = StyleSheet.create({
   container: {
-    height:336,
+    height: 336,
     backgroundColor: '#fff',
     borderRadius: 6,
     borderWidth: 1,

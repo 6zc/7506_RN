@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
-import EIcon from 'react-native-vector-icons/Ionicons'
-import AIcon from 'react-native-vector-icons/AntDesign'
+import {NavigationContainer} from '@react-navigation/native';
+import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
+import EIcon from 'react-native-vector-icons/Ionicons';
+import AIcon from 'react-native-vector-icons/AntDesign';
 import SearchBar from './top_searchbar/top_searchbar';
 import MapWrapper from './map/map';
 import Today from './forecast/today';
@@ -75,62 +72,61 @@ const App = () => {
 
   const Forecast = props => {
     return (
-      <View style={styles.today} >
-        <Today/>
-        <Hours/>
-        <Days/>
+      <View style={styles.today}>
+        <Today />
+        <Hours />
+        <Days />
       </View>
-    )
-  }
+    );
+  };
 
   const Map = props => {
     return (
       <View>
-        <SearchBar stationList={stationList} setCurStation={setCurStation}/>
-        <MapWrapper stationList={stationList} curStation={curStation}/>
+        <SearchBar stationList={stationList} setCurStation={setCurStation} />
+        <MapWrapper stationList={stationList} curStation={curStation} />
       </View>
-    )
-  }
+    );
+  };
 
   return (
     <NavigationContainer>
       <Tabs.Navigator
         tabBarOptions={{
-          activeTintColor: "#ffffff",
+          activeTintColor: '#ffffff',
           activeBackgroundColor: '#4da4dd',
-          labelStyle:{
-            fontSize:24
-          }
-        }}
-      >
-        <Tabs.Screen 
-          name="Map" 
+          labelStyle: {
+            fontSize: 24,
+          },
+        }}>
+        <Tabs.Screen
+          name="Map"
           component={Map}
           options={{
-            tabBarIcon: ({ focused, color, size }) => (
-                <EIcon
-                    name="location-sharp"
-                    size={34}
-                    color={focused ? color : "#222222"}
-                    focused={focused}
-                />
-            )
-          }} 
+            tabBarIcon: ({focused, color, size}) => (
+              <EIcon
+                name="location-sharp"
+                size={34}
+                color={focused ? color : '#222222'}
+                focused={focused}
+              />
+            ),
+          }}
         />
-        <Tabs.Screen 
-          name="Forecast" 
+        <Tabs.Screen
+          name="Forecast"
           component={Forecast}
           options={{
-            tabBarIcon: ({ focused, color, size }) => (
-                <AIcon
-                    name="cloud"
-                    size={34}
-                    color={focused ? color : "#222222"}
-                    focused={focused}
-                />
-            )
-          }} 
-          />
+            tabBarIcon: ({focused, color, size}) => (
+              <AIcon
+                name="cloud"
+                size={34}
+                color={focused ? color : '#222222'}
+                focused={focused}
+              />
+            ),
+          }}
+        />
       </Tabs.Navigator>
     </NavigationContainer>
   );
@@ -145,7 +141,7 @@ const styles = StyleSheet.create({
   },
   container: {
     // marginBottom: 44,
-    alignItems:'flex-end'
+    alignItems: 'flex-end',
   },
 });
 
