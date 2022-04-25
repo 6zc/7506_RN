@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import SearchBar from 'react-native-searchbar'
+import React, {useState} from 'react';
+import SearchBar from 'react-native-searchbar';
 
 const TopSearchBar = props => {
   // const [curStation, setCurStation] = useState("MidWest")
-  const [tempResult, setTempResult] = useState("MidWest")
+  const [tempResult, setTempResult] = useState('MidWest');
   const stationList = props.stationList;
   const setCurStation = props.setCurStation;
-  const _handleResults = (results) => {
-    if(results.length){
+  const _handleResults = results => {
+    if (results.length) {
       setTempResult(results[0].name);
     }
-  }
-  const _handleSubmit = ()=>{
-    setCurStation(tempResult)
-  }
+  };
+  const _handleSubmit = () => {
+    setCurStation(tempResult);
+  };
   return (
     <SearchBar
       data={stationList}
@@ -24,10 +24,10 @@ const TopSearchBar = props => {
       showOnLoad={true}
       focusOnLayout={false}
       handleResults={_handleResults}
-      placeholderTextColor={"gray"}
+      placeholderTextColor={'gray'}
       onSubmitEditing={_handleSubmit}
     />
-  )
-}
+  );
+};
 
-export default TopSearchBar
+export default TopSearchBar;
