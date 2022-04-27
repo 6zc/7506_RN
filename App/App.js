@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -15,7 +15,6 @@ const Tabs = AnimatedTabBarNavigator();
 
 const App = () => {
   const [curStation, setCurStation] = useState('MidWest');
-
   const latitude = 22.2745;
   const longitude = 114.1533;
   const SPACE = 0.01;
@@ -70,6 +69,19 @@ const App = () => {
     },
   ];
 
+  useEffect(() => {
+    async function fetchData(){
+      try {
+        let response = await fetch('http://47.94.208.98:8080/homepage');
+        let responseJson = await response.json();
+        console.log(responseJson)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData()
+  })
+
   const Forecast = props => {
     return (
       <View style={styles.today}>
@@ -106,8 +118,8 @@ const App = () => {
             tabBarIcon: ({focused, color, size}) => (
               <EIcon
                 name="location-sharp"
-                size={34}
-                color={focused ? color : '#222222'}
+                size={30}
+                color={focused ? color : '#4da4dd'}
                 focused={focused}
               />
             ),
@@ -121,7 +133,7 @@ const App = () => {
               <AIcon
                 name="cloud"
                 size={34}
-                color={focused ? color : '#222222'}
+                color={focused ? color : '#4da4dd'}
                 focused={focused}
               />
             ),
@@ -133,15 +145,8 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  navi: {
-    // position: 'absolute',
-  },
   today: {
     backgroundColor: '#4da4dd',
-  },
-  container: {
-    // marginBottom: 44,
-    alignItems: 'flex-end',
   },
 });
 

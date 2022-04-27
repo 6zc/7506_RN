@@ -1,0 +1,291 @@
+{
+  "uvindex": {
+    "data": [
+      {
+        "place": "King's Park",
+        "value": 2,
+        "desc": "low"
+      }
+    ],
+    "recordDesc": "During the past hour"
+  },
+  "rainfall": {
+    "data": [
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Central &amp; Western District"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Eastern District"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Kwai Tsing"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Islands District"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "North District"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Sai Kung"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Sha Tin"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Southern District"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Tai Po"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Tsuen Wan"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Tuen Mun"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Wan Chai"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Yuen Long"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Yau Tsim Mong"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Sham Shui Po"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Kowloon City"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Wong Tai Sin"
+      },
+      {
+        "unit": "mm",
+        "max": 0,
+        "main": "FALSE",
+        "place": "Kwun Tong"
+      }
+    ],
+    "startTime": "2022-04-26T14:45:00+08:00",
+    "endTime": "2022-04-26T15:45:00+08:00"
+  },
+  "temperature": {
+    "recordTime": "2022-04-26T16:00:00+08:00",
+    "data": [
+      {
+        "unit": "C",
+        "place": "King's Park",
+        "district": "Yau Tsim Mong",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Hong Kong Observatory",
+        "district": "Yau Tsim Mong",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Wong Chuk Hang",
+        "district": "Southern District",
+        "value": 28
+      },
+      {
+        "unit": "C",
+        "place": "Ta Kwu Ling",
+        "district": "North District",
+        "value": 31
+      },
+      {
+        "unit": "C",
+        "place": "Lau Fau Shan",
+        "district": "Yuen Long",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Tai Po",
+        "district": "Tai Po",
+        "value": 31
+      },
+      {
+        "unit": "C",
+        "place": "Sha Tin",
+        "district": "Sha Tin",
+        "value": 30
+      },
+      {
+        "unit": "C",
+        "place": "Tuen Mun",
+        "district": "Tuen Mun",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Tseung Kwan O",
+        "district": "Sai Kung",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Sai Kung",
+        "district": "Sai Kung",
+        "value": 27
+      },
+      {
+        "unit": "C",
+        "place": "Chek Lap Kok",
+        "district": "Islands District",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Tsing Yi",
+        "district": "Kwai Tsing",
+        "value": 28
+      },
+      {
+        "unit": "C",
+        "place": "Shek Kong",
+        "district": "Yuen Long",
+        "value": 30
+      },
+      {
+        "unit": "C",
+        "place": "Tsuen Wan Ho Koon",
+        "district": "Tsuen Wan",
+        "value": 27
+      },
+      {
+        "unit": "C",
+        "place": "Tsuen Wan Shing Mun Valley",
+        "district": "Tsuen Wan",
+        "value": 28
+      },
+      {
+        "unit": "C",
+        "place": "Hong Kong Park",
+        "district": "Central &amp; Western District",
+        "value": 27
+      },
+      {
+        "unit": "C",
+        "place": "Shau Kei Wan",
+        "district": "Eastern District",
+        "value": 28
+      },
+      {
+        "unit": "C",
+        "place": "Kowloon City",
+        "district": "Kowloon City",
+        "value": 28
+      },
+      {
+        "unit": "C",
+        "place": "Happy Valley",
+        "district": "Wan Chai",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Wong Tai Sin",
+        "district": "Wong Tai Sin",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Stanley",
+        "district": "Southern District",
+        "value": 29
+      },
+      {
+        "unit": "C",
+        "place": "Kwun Tong",
+        "district": "Kowloon City",
+        "value": 30
+      },
+      {
+        "unit": "C",
+        "place": "Sham Shui Po",
+        "district": "Sham Shui Po",
+        "value": 30
+      },
+      {
+        "unit": "C",
+        "place": "Yuen Long Park",
+        "district": "Yuen Long",
+        "value": 30
+      },
+      {
+        "unit": "C",
+        "place": "Tai Mei Tuk",
+        "district": "Tai Po",
+        "value": 30
+      }
+    ]
+  },
+  "humidity": {
+    "recordTime": "2022-04-26T16:00:00+08:00",
+    "data": [
+      {
+        "unit": "percent",
+        "place": "Hong Kong Observatory",
+        "value": 75
+      }
+    ]
+  }
+}

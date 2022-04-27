@@ -24,12 +24,6 @@ const Map = props => {
   };
 
   const refs = new Array(stationList.length);
-  // for (let i = 0; i < stationList.length; i++) {
-  //   refs[stationList[i].name] = useRef(null);
-  // }
-  // stationList.map(marker => {
-  //   refs[marker.name] = useRef(null);
-  // });
 
   useEffect(() => {
     Geolocation.getCurrentPosition(info => {
@@ -49,7 +43,7 @@ const Map = props => {
         style={styles.map}
         showsUserLocation={true}
         region={region}
-        minZoomLevel={10}
+        minZoomLevel={9}
         maxZoomLevel={15}
         followsUserLocation={true}
         zoomTapEnabled={false}>
@@ -94,10 +88,6 @@ const Map = props => {
   );
 };
 
-Map.propTypes = {
-  provider: ProviderPropType,
-};
-
 const styles = StyleSheet.create({
   textWrapper: {
     flexDirection: 'row',
@@ -117,10 +107,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignSelf: 'flex-start',
     alignItems: 'center',
-  },
-  customView: {
-    // width: 140,
-    // height: 140,
   },
   container: {
     ...StyleSheet.absoluteFillObject,
