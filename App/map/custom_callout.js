@@ -4,29 +4,28 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const CustomCallout = props => {
   const weatherObj = props.weatherObj;
-  const {name, temp, weather, windSpeed, windDirection, UV} = weatherObj;
+  const {place, value, rainfall} = weatherObj;
+  const rainIcon = rainfall.max === 0?'sun':(rainfall.max>25?'cloud-rain':'cloud-showers-heavy')
   return (
     <View style={[styles.container, props.style]}>
-      <View style={styles.bubble}>
+      <View style={[styles.bubble, {width:place.length*8+20}]}>
         <View style={styles.lines}>
           <FontAwesome style={styles.icons} name={'location-arrow'} />
-          <Text>{' ' + name}</Text>
+          <Text>{'  ' + place}</Text>
         </View>
         <View style={styles.lines}>
-          <FontAwesome style={styles.icons} name={'cloud'} />
-          <Text>{weather + ' ' + temp + '°C'}</Text>
+          <FontAwesome style={styles.icons} name={'temperature-low'} />
+          <Text>{ '  '+value + '°C'}</Text>
         </View>
         <View style={styles.lines}>
-          <FontAwesome style={styles.icons} name={'wind'} />
-          <Text>{' ' + windDirection + ' ' + windSpeed}</Text>
+          <FontAwesome style={styles.icons} name={rainIcon} />
+          <Text>{'  ' + rainfall.max + ' mm'}</Text>
         </View>
-        <View style={styles.lines}>
+        {/* <View style={styles.lines}>
           <FontAwesome style={styles.icons} name={'sun'} />
           <Text>{' UV index: ' + UV}</Text>
-        </View>
+        </View> */}
       </View>
-      <View style={styles.arrowBorder} />
-      <View style={styles.arrow} />
     </View>
   );
 };
@@ -44,34 +43,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   bubble: {
-    width: 140,
+    width: 200,
+    height:50,
     flexDirection: 'column',
     alignSelf: 'flex-start',
     backgroundColor: '#ffffff',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 6,
-    borderColor: '#eeeeee',
-    borderWidth: 0.5,
   },
   amount: {
     flex: 1,
-  },
-  arrow: {
-    backgroundColor: 'transparent',
-    borderWidth: 16,
-    borderColor: 'transparent',
-    borderTopColor: '#ffffff',
-    alignSelf: 'center',
-    marginTop: -32,
-  },
-  arrowBorder: {
-    backgroundColor: 'transparent',
-    borderWidth: 16,
-    borderColor: 'transparent',
-    borderTopColor: '#007a87',
-    alignSelf: 'center',
-    marginTop: -0.5,
   },
 });
 

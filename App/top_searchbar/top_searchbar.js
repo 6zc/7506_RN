@@ -3,12 +3,13 @@ import SearchBar from 'react-native-searchbar';
 
 const TopSearchBar = props => {
   // const [curStation, setCurStation] = useState("MidWest")
-  const [tempResult, setTempResult] = useState('MidWest');
+  const curStation = props.curStation;
   const stationList = props.stationList;
   const setCurStation = props.setCurStation;
+  const [tempResult, setTempResult] = useState(curStation);
   const _handleResults = results => {
     if (results.length) {
-      setTempResult(results[0].name);
+      setTempResult(results[0].place);
     }
   };
   const _handleSubmit = () => {
@@ -17,7 +18,7 @@ const TopSearchBar = props => {
   return (
     <SearchBar
       data={stationList}
-      placeholder={'MidWest'}
+      placeholder={tempResult}
       heightAdjust={10}
       hideBack={true}
       hideX={true}
@@ -26,6 +27,7 @@ const TopSearchBar = props => {
       handleResults={_handleResults}
       placeholderTextColor={'gray'}
       onSubmitEditing={_handleSubmit}
+      autoCorrect={false}
     />
   );
 };

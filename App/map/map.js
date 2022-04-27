@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Dimensions} from 'react-native';
-import MapView, {Marker, Callout, ProviderPropType} from 'react-native-maps';
+import MapView, {Marker, Callout} from 'react-native-maps';
 import CustomCallout from './custom_callout';
-import Geolocation from 'react-native-geolocation-service';
-import Cal from './calculate_color';
+import {Cal, getCord} from './calculator';
+
+const refs = []
 
 const Map = props => {
   const stationList = props.stationList;
-  // const curStation = props.curStation;
+  const curStation = props.curStation;
   const {width, height} = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
-  const LATITUDE_DELTA = 0.5;
+  const LATITUDE_DELTA = 0.4;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const [latitude, setLatitude] = useState(22.2745);
   const [longitude, setLongitude] = useState(114.1533);
-  const [showMarkers, setShowMarkers] = useState(true);
 
   const region = {
     latitude: latitude,
@@ -23,18 +23,14 @@ const Map = props => {
     longitudeDelta: LONGITUDE_DELTA,
   };
 
-  const refs = new Array(stationList.length);
-
   useEffect(() => {
-    Geolocation.getCurrentPosition(info => {
-      setLatitude(info.coords.latitude);
-      setLongitude(info.coords.longitude);
-    });
-  });
-
-  const onCallout = () => {
-    setShowMarkers(!showMarkers);
-  };
+    setLatitude(getCord(curStation).latitude);
+    setLongitude(getCord(curStation).longitude);
+    if(refs[curStation]){
+      console.log('show!')
+      refs[curStation].showCallout()
+    }
+  },[props.curStation]);
 
   return (
     <View style={styles.container}>
@@ -45,31 +41,26 @@ const Map = props => {
         region={region}
         minZoomLevel={9}
         maxZoomLevel={15}
-        followsUserLocation={true}
+        // followsUserLocation={true}
         zoomTapEnabled={false}>
         {stationList.map(marker => (
           <Marker
-            ref={refs[marker.name]}
-            key={marker.name}
-            onSelect={() => onCallout()}
-            onDeselect={() => onCallout()}
-            coordinate={marker.coordinate}
-            calloutOffset={{x: 0, y: 30}}
-            calloutAnchor={{x: 0.5, y: 0.7}}>
+            ref={ref=>refs[marker.place]=ref}
+            key={marker.place}
+            coordinate={getCord(marker.place)}
+            >
             <View style={styles.customMarker}>
               <View
                 style={[
                   styles.textWrapper,
-                  {backgroundColor: Cal(marker.temp)},
-                  {opacity: showMarkers ? 1 : 0},
+                  {backgroundColor: Cal(marker.value)},
                 ]}>
-                <Text>{marker.temp}</Text>
+                <Text>{marker.value}</Text>
                 <Text style={styles.celsius}>{'°C'}</Text>
               </View>
             </View>
             <Callout
               alphaHitTest
-              tooltip
               onPress={e => {
                 if (
                   e.nativeEvent.action === 'marker-inside-overlay-press' ||
@@ -98,7 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderColor: '#eeeeee',
     borderWidth: 0.5,
-    zIndex: 2,
+    
   },
   celsius: {
     fontSize: 12,

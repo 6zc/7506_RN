@@ -10,77 +10,26 @@ import MapWrapper from './map/map';
 import Today from './forecast/today';
 import Hours from './forecast/hours';
 import Days from './forecast/days';
+import { LogBox } from "react-native";
 
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 const Tabs = AnimatedTabBarNavigator();
-
 const App = () => {
-  const [curStation, setCurStation] = useState('MidWest');
-  const latitude = 22.2745;
-  const longitude = 114.1533;
-  const SPACE = 0.01;
-  const stationList = [
-    {
-      name: 'MidWest',
-      temp: '30',
-      weather: 'Rainy',
-      windSpeed: '10m/s',
-      windDirection: 'North',
-      UV: '10',
-      coordinate: {
-        latitude: latitude,
-        longitude: longitude + 3 * SPACE,
-      },
-    },
-    {
-      name: 'Central',
-      temp: '15',
-      weather: 'Rainy',
-      windSpeed: '10m/s',
-      windDirection: 'North',
-      UV: '10',
-      coordinate: {
-        latitude: latitude + 3 * SPACE,
-        longitude: longitude - SPACE,
-      },
-    },
-    {
-      name: 'Kowloon',
-      temp: '18',
-      weather: 'Rainy',
-      windSpeed: '10m/s',
-      windDirection: 'North',
-      UV: '10',
-      coordinate: {
-        latitude: latitude,
-        longitude: longitude,
-      },
-    },
-    {
-      name: 'Shamsuipo',
-      temp: '23',
-      weather: 'Rainy',
-      windSpeed: '10m/s',
-      windDirection: 'North',
-      UV: '10',
-      coordinate: {
-        latitude: latitude,
-        longitude: longitude - 3 * SPACE,
-      },
-    },
-  ];
+  const [curStation, setCurStation] = useState('Hong Kong Park');
+  const [stationList, setStationList] = useState([])
 
   useEffect(() => {
     async function fetchData(){
       try {
         let response = await fetch('http://47.94.208.98:8080/homepage');
         let responseJson = await response.json();
-        console.log(responseJson)
+        setStationList(responseJson.temperature.data)
       } catch (error) {
         console.error(error);
       }
     }
     fetchData()
-  })
+  },[])
 
   const Forecast = props => {
     return (
@@ -95,8 +44,13 @@ const App = () => {
   const Map = props => {
     return (
       <View>
-        <SearchBar stationList={stationList} setCurStation={setCurStation} />
-        <MapWrapper stationList={stationList} curStation={curStation} />
+        <SearchBar 
+          stationList={stationList} 
+          setCurStation={setCurStation}
+          curStation={curStation}/>
+        <MapWrapper 
+          stationList={stationList}
+          curStation={curStation} />
       </View>
     );
   };
