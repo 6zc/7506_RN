@@ -1,41 +1,41 @@
 import React from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5'
+import {StyleSheet, View, Text} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const CustomCallout = props => {
-  const weatherObj = props.weatherObj
-  const {name, temp, weather, windSpeed, windDirection, UV} = weatherObj
+  const weatherObj = props.weatherObj;
+  const {name, temp, weather, windSpeed, windDirection, UV} = weatherObj;
   return (
     <View style={[styles.container, props.style]}>
       <View style={styles.bubble}>
         <View style={styles.lines}>
-          <FontAwesome style={styles.icons} name={'location-arrow'}></FontAwesome>
-          <Text>{' '+name}</Text>
+          <FontAwesome style={styles.icons} name={'location-arrow'} />
+          <Text>{' ' + name}</Text>
         </View>
         <View style={styles.lines}>
-          <FontAwesome style={styles.icons} name={'cloud'}></FontAwesome>
-          <Text>{weather+' '+temp+'°C'}</Text>
+          <FontAwesome style={styles.icons} name={'cloud'} />
+          <Text>{weather + ' ' + temp + '°C'}</Text>
         </View>
         <View style={styles.lines}>
-          <FontAwesome style={styles.icons} name={'wind'}></FontAwesome>
-          <Text>{' '+windDirection+' '+windSpeed}</Text>
+          <FontAwesome style={styles.icons} name={'wind'} />
+          <Text>{' ' + windDirection + ' ' + windSpeed}</Text>
         </View>
         <View style={styles.lines}>
-          <FontAwesome style={styles.icons} name={'sun'}></FontAwesome>
-          <Text>{' UV index: '+UV}</Text>
+          <FontAwesome style={styles.icons} name={'sun'} />
+          <Text>{' UV index: ' + UV}</Text>
         </View>
       </View>
       <View style={styles.arrowBorder} />
       <View style={styles.arrow} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  icons:{
-    paddingRight:3
+  icons: {
+    paddingRight: 3,
   },
-  lines:{
+  lines: {
     flexDirection: 'row',
     alignItems: 'center',
   },
