@@ -2,7 +2,7 @@
 未来7天天气预报
  */
 
-import React, {useState, useEffect, Component} from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, FlatList, Image, Text, View} from 'react-native';
 
 export default class Days extends Component {
