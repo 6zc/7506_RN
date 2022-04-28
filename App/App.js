@@ -17,13 +17,18 @@ const Tabs = AnimatedTabBarNavigator();
 const App = () => {
   const [curStation, setCurStation] = useState('Hong Kong Park');
   const [stationList, setStationList] = useState([])
+  const [humidity, setHumidity] = useState([])
+  const [uvindex, setUvindex] = useState([])
 
   useEffect(() => {
     async function fetchData(){
       try {
         let response = await fetch('http://47.94.208.98:8080/homepage');
         let responseJson = await response.json();
+        console.log(responseJson)
         setStationList(responseJson.temperature.data)
+        setHumidity(responseJson.humidity.data)
+        setUvindex(responseJson.uvindx.data)
       } catch (error) {
         console.error(error);
       }
@@ -50,7 +55,9 @@ const App = () => {
           curStation={curStation}/>
         <MapWrapper 
           stationList={stationList}
-          curStation={curStation} />
+          curStation={curStation}
+          humidity={humidity}
+          uvindex={uvindex}/>
       </View>
     );
   };

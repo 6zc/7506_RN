@@ -29,6 +29,7 @@ function Cal(temp){
 
 function getCord(name){
   const cordList = {
+    "Kai Tak Runway Park":{latitude:22.30430, longitude:114.21556},
     "King's Park":{latitude:22.31271,longitude:114.17386},
     "Hong Kong Observatory":{latitude:22.30230,longitude:114.17431},
     "Wong Chuk Hang":{latitude:22.24552,longitude:114.16698},
