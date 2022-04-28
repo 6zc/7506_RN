@@ -74,7 +74,6 @@ const App = () => {
       try {
         let response = await fetch('http://47.94.208.98:8080/homepage');
         let responseJson = await response.json();
-        console.log(responseJson)
       } catch (error) {
         console.error(error);
       }
