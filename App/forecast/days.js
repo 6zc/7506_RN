@@ -15,62 +15,96 @@ export default class Days extends Component {
           weather: 'Rain',
           temphigh: '10',
           templow: '8',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
         },
         {
           week: 'Tuesday',
           weather: 'Clear',
           temphigh: '15',
           templow: '10',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
         },
         {
           week: 'Wednesday',
           weather: 'Showers',
           temphigh: '12',
           templow: '7',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
+        },
+        {
+          week: 'Tuesday',
+          weather: 'Clear',
+          temphigh: '15',
+          templow: '10',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
+        },
+        {
+          week: 'Wednesday',
+          weather: 'Showers',
+          temphigh: '12',
+          templow: '7',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
         },
         {
           week: 'Thursday',
           weather: 'Cloudy',
           temphigh: '10',
           templow: '8',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
         },
         {
           week: 'Friday',
           weather: 'Cloudy',
           temphigh: '11',
           templow: '3',
-        },
-        {
-          week: 'Saturday',
-          weather: 'Showers',
-          temphigh: '17',
-          templow: '5',
-        },
-        {
-          week: 'Sunday',
-          weather: 'Showers',
-          temphigh: '16',
-          templow: '9',
+          icon:'https://app1.showapi.com/weather/icon/day/01.png'
         },
       ],
     };
   }
 
+  componentDidMount(){
+    var that=this;
+    async function fetchData(){
+      try {
+        let response = await fetch('https://devapi.qweather.com/v7/weather/15d?location=114.15,22.15&key=edc0ef084df64ffcb1a9412483b3bd92&lang=en');
+        let responseJson = await response.json();
+        that.setState({
+          data: responseJson.daily,       
+        });
+        //console.log(that.state.data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData()
+  };
+
   renderTopicItems = ({item, index}) => {
+    var iconIndex = 1;
+    if(item.iconDay =='100'){
+      iconIndex = 0;
+    } else if(item.iconDay == '101'|| item.iconDa=='104'){
+      iconIndex = 2;
+    } else if(item.iconDay > '101'&& item.iconDa<='300'){
+      iconIndex = 1;
+    } else if(item.iconDay>='300'){
+      iconIndex = 8;
+    } 
     return (
       <View style={Styles.item}>
-        <Text style={Styles.week}>{item.week}</Text>
+        <Text style={Styles.week}>{item.fxDate}</Text>
         <View style={Styles.wea}>
           <Image
             style={Styles.icon}
             source={{
               uri:
-                'https://app1.showapi.com/weather/icon/day/0' + index + '.png',
+                'https://app1.showapi.com/weather/icon/day/0'+iconIndex+'.png',
             }}
           />
-          <Text style={Styles.weaText}>{item.weather}</Text>
+          <Text style={Styles.weaText}>{item.textDay}</Text>
           <Text style={Styles.tem}>
-            {item.temphigh}ºC&nbsp;~&nbsp;{item.templow}ºC
+            {item.tempMax}ºC&nbsp;~&nbsp;{item.tempMin}ºC
           </Text>
         </View>
       </View>
@@ -88,7 +122,7 @@ export default class Days extends Component {
       />
     );
   }
-}
+ }
 
 const Styles = StyleSheet.create({
   container: {

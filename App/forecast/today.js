@@ -9,39 +9,66 @@ export default class Today extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: 'Tsim Sha Tsui',
-      weather: {
-        aqi: '36',
-        aqiDetail: 'Good',
-        temperature: '18',
-        temperature_time: '00:00',
-        week: 'Thursday',
-        weather: 'Storms',
-        weather_pic: 'http://app1.showapi.com/weather/icon/day/301.png',
-        wind_direction: 'wind',
-        wind_power: 'breeze',
-      },
-      loaded: false,
+      location: 'Hong Kong',
+      aqi: '36',
+      aqiDetail: 'Good',
+      temperature: '18',
+      temperature_time: '00:00',
+      humidity: '70',
+      weather: 'Storms',
+      icon: 1,
+      wind_direction: 'wind',
+      wind_power: 'breeze',
     };
   }
 
+  componentDidMount(){
+    var that=this;
+    async function fetchData(){
+      try {
+        let response = await fetch('https://devapi.qweather.com/v7/weather/now?location=114.15,22.15&key=edc0ef084df64ffcb1a9412483b3bd92&lang=en');
+        let responseJson = await response.json();
+        that.setState({
+          temperature: responseJson.now.temp,       
+          aqi: responseJson.now.feelsLike,
+          aqiDetail: 'Good',
+          temperature_time: responseJson.now.obsTime,
+          humidity: responseJson.now.humidity,
+          weather: responseJson.now.text,
+          icon: responseJson.now.icon,
+          wind_direction: responseJson.now.windDir,
+          wind_power: responseJson.now.windScale,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData()
+  };
+
   render() {
-    var weather = this.state.weather;
-    // var img =
-    //   weather.weather_pic < 10
-    //     ? '0' + weather.weather_pic
-    //     : weather.weather_pic;
+    var weather = this.state;
+    var iconIndex = 8;
+    if(weather.icon =='100'){
+      iconIndex = 0;
+    } else if(weather.icon == '101'|| weather.icon=='104'){
+      iconIndex = 2;
+    } else if(weather.icon > '101'&& weather.icon<='300'){
+      iconIndex = 1;
+    } else if(weather.icon>='300'){
+      iconIndex = 8;
+    } 
     return (
       <View style={Styles.container}>
         <View style={Styles.city}>
-          <Text style={Styles.loc}>{this.state.location}</Text>
+          <Text style={Styles.loc}>{weather.location}</Text>
           <Text style={Styles.weather}>{weather.weather}</Text>
         </View>
         <View style={Styles.weatherCon}>
           <Image
             style={Styles.weaIcon}
             resizeMode="contain"
-            source={{uri: 'https://app1.showapi.com/weather/icon/day/04.png'}}
+            source={{uri:'https://app1.showapi.com/weather/icon/day/0'+iconIndex+'.png'}}
           />
           <View style={Styles.tem}>
             <View style={Styles.temp}>
@@ -55,7 +82,7 @@ export default class Today extends Component {
         </View>
         <View style={Styles.date}>
           <Text style={Styles.left}>
-            {weather.week}&nbsp;&nbsp;&nbsp; Update time:&nbsp;16:42
+          Humidity:&nbsp;{weather.humidity}&nbsp;&nbsp;&nbsp; Time:&nbsp;{weather.temperature_time.slice(0,10)}
           </Text>
           <Text style={Styles.scope}>
             {weather.wind_direction}&nbsp;&nbsp;{weather.wind_power}

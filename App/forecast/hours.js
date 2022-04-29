@@ -8,7 +8,6 @@ import {StyleSheet, FlatList, Image, Text, View} from 'react-native';
 export default class Hours extends Component {
   constructor(props) {
     super(props);
-    //var ds = new FlatList.DataSource({rowHasChanged: (r1, r2)=>r1 !== r2})
     this.state = {
       data: [
         {
@@ -50,19 +49,42 @@ export default class Hours extends Component {
       ],
     };
   }
+  componentDidMount(){
+    var that=this;
+    async function fetchData(){
+      try {
+        let response = await fetch('https://devapi.qweather.com/v7/weather/24h?location=114.15,22.15&key=edc0ef084df64ffcb1a9412483b3bd92&lang=en');
+        let responseJson = await response.json();
+        that.setState({
+          data: responseJson.hourly
+        });
+        //console.log(that.state.data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData()
+  };
 
   renderTopicItemq = ({item, index}) => {
+    var iconIndex = 1;
+    if(item.icon =='100'){
+      iconIndex = 0;
+    } else if(item.icon == '101'|| item.icon=='104'){
+      iconIndex = 2;
+    } else if(item.icon > '101'&& item.icon<='300'){
+      iconIndex = 1;
+    } else if(item.icon>='300'){
+      iconIndex = 8;
+    } 
     return (
       <View style={Styles.day}>
-        <Text style={Styles.hours}>{item.time}:00</Text>
+        <Text style={Styles.hours}>{item.fxTime == undefined? '': item.fxTime.slice(11,16)}</Text>
         <Image
           style={Styles.icon}
           source={{
             uri:
-              'https://app1.showapi.com/weather/icon/day/' +
-              '0' +
-              index +
-              '.png',
+              'https://app1.showapi.com/weather/icon/day/0'+iconIndex+'.png',
           }}
         />
         <Text style={Styles.tem}>{item.temp}ºC</Text>
@@ -70,20 +92,8 @@ export default class Hours extends Component {
     );
   };
 
-  /*
-    _renderList(item) {
-        return (
-            <View style={Styles.day}>
-                <Text style={Styles.hours}>{item.time}:00</Text>
-                <Image style={Styles.icon} source={{uri: 'https://app1.showapi.com/weather/icon/day/05.png'}}/>
-                <Text style={Styles.tem}>{item.temp}º</Text>
-            </View>
-        )
-    }
-    */
-
   render() {
-    const data = this.state.data;
+    var data = this.state.data;
     return (
       <View style={Styles.container}>
         <FlatList
@@ -91,7 +101,6 @@ export default class Hours extends Component {
           horizontal={true}
           data={data}
           renderItem={this.renderTopicItemq}
-          //renderItem={({item}) => this._renderList(item)}
           keyExtractor={(item, index) => index}
         />
       </View>
